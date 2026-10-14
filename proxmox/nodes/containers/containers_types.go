@@ -253,16 +253,18 @@ type GetStatusResponseBody struct {
 
 // GetStatusResponseData contains the data from a container get status response.
 type GetStatusResponseData struct {
-	CPUCount         *float64         `json:"cpus,omitempty"`
-	Lock             *string          `json:"lock,omitempty"`
-	MemoryAllocation *int64           `json:"maxmem,omitempty"`
-	Name             *string          `json:"name,omitempty"`
-	RootDiskSize     *any             `json:"maxdisk,omitempty"`
-	Status           string           `json:"status,omitempty"`
-	SwapAllocation   *int64           `json:"maxswap,omitempty"`
-	Tags             *string          `json:"tags,omitempty"`
-	Uptime           *int             `json:"uptime,omitempty"`
-	VMID             *types.CustomInt `json:"vmid,omitempty"`
+	// PVE copies cores, else cpulimit, into cpus. It converts integer options such as cores to numbers but returns
+	// number options such as cpulimit as strings, so use CustomFloat64 to accept both forms. cpulimit may be fractional.
+	CPUCount         *types.CustomFloat64 `json:"cpus,omitempty"`
+	Lock             *string              `json:"lock,omitempty"`
+	MemoryAllocation *int64               `json:"maxmem,omitempty"`
+	Name             *string              `json:"name,omitempty"`
+	RootDiskSize     *any                 `json:"maxdisk,omitempty"`
+	Status           string               `json:"status,omitempty"`
+	SwapAllocation   *int64               `json:"maxswap,omitempty"`
+	Tags             *string              `json:"tags,omitempty"`
+	Uptime           *int                 `json:"uptime,omitempty"`
+	VMID             *types.CustomInt     `json:"vmid,omitempty"`
 }
 
 // ListResponseBody contains the body from a container list response.
